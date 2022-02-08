@@ -14,6 +14,24 @@ class App extends Component {
     ],
     filter: "",
   };
+  componentDidMount() {
+    const contacts = localStorage.getItem("contact");
+    const parsedContacts = JSON.parse(contacts);
+    console.log(parsedContacts);
+
+    if (parsedContacts) {
+      this.setState({ contacts: parsedContacts });
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    console.log(prevState.contacts);
+    console.log(this.state.contacts);
+    if (prevState.contacts !== this.state.contacts) {
+      console.log("ok");
+      localStorage.setItem("contact", JSON.stringify(this.state.contacts));
+    }
+  }
 
   addContact = (newContact) => {
     const searchContactByName = this.state.contacts
